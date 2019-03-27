@@ -67,7 +67,7 @@ class Demo extends React.Component {
             <CircularProgressbar
               className="CircularProgressbar-inverted"
               background
-              backgroundPadding={5}
+              backgroundPadding={-6}
               strokeWidth={6}
               percentage={66}
               text={`${66}%`}

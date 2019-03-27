@@ -9,6 +9,12 @@ const FULL_RADIUS = 50;
 const CENTER_X = 50;
 const CENTER_Y = 50;
 
+const clamp = (
+  val,
+  lower = -Number.MAX_VALUE,
+  upper = Number.MAX_VALUE
+) => Math.max(lower, Math.min(upper, val));
+
 class CircularProgressbar extends React.Component {
   constructor(props) {
     super(props);
@@ -84,7 +90,11 @@ class CircularProgressbar extends React.Component {
   getPathRadius() {
     // the radius of the path is defined to be in the middle, so in order for the path to
     // fit perfectly inside the 100x100 viewBox, need to subtract half the strokeWidth
-    return FULL_RADIUS - (this.props.strokeWidth / 2) - this.getBackgroundPadding();
+    return FULL_RADIUS - (this.props.strokeWidth / 2) - clamp(this.getBackgroundPadding(), 0);
+  }
+
+  getBackgroundRadius() {
+    return FULL_RADIUS + clamp(this.getBackgroundPadding(), undefined, 0);
   }
 
   render() {
@@ -111,7 +121,7 @@ class CircularProgressbar extends React.Component {
               style={styles.background}
               cx={CENTER_X}
               cy={CENTER_Y}
-              r={FULL_RADIUS}
+              r={this.getBackgroundRadius()}
             />
           ) : null
         }

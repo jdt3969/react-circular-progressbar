@@ -45,7 +45,7 @@
  *   />
  */
 .CircularProgressbar.CircularProgressbar-inverted .CircularProgressbar-background {
-  fill: #3e98c7;
+  /*fill: #3e98c7;*/
 }
 
 .CircularProgressbar.CircularProgressbar-inverted .CircularProgressbar-text {
@@ -53,9 +53,10 @@
 }
 
 .CircularProgressbar.CircularProgressbar-inverted .CircularProgressbar-path {
-  stroke: #fff;
+  /*stroke: #fff;*/
 }
 
 .CircularProgressbar.CircularProgressbar-inverted .CircularProgressbar-trail {
-  stroke: transparent;
+  stroke: #d6d6d6;
+  opacity: 0.2;  
 }
