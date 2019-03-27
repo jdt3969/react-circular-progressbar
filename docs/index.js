@@ -4647,6 +4647,12 @@ var FULL_RADIUS = 50;
 var CENTER_X = 50;
 var CENTER_Y = 50;
 
+var clamp = function clamp(val) {
+  var lower = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : -Number.MAX_VALUE;
+  var upper = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : Number.MAX_VALUE;
+  return Math.max(lower, Math.min(upper, val));
+};
+
 var CircularProgressbar = function (_React$Component) {
   _inherits(CircularProgressbar, _React$Component);
 
@@ -4732,7 +4738,12 @@ var CircularProgressbar = function (_React$Component) {
     value: function getPathRadius() {
       // the radius of the path is defined to be in the middle, so in order for the path to
       // fit perfectly inside the 100x100 viewBox, need to subtract half the strokeWidth
-      return FULL_RADIUS - this.props.strokeWidth / 2 - this.getBackgroundPadding();
+      return FULL_RADIUS - this.props.strokeWidth / 2 - clamp(this.getBackgroundPadding(), 0);
+    }
+  }, {
+    key: 'getBackgroundRadius',
+    value: function getBackgroundRadius() {
+      return FULL_RADIUS + clamp(this.getBackgroundPadding(), undefined, 0);
     }
   }, {
     key: 'render',
@@ -4759,7 +4770,7 @@ var CircularProgressbar = function (_React$Component) {
           style: styles.background,
           cx: CENTER_X,
           cy: CENTER_Y,
-          r: FULL_RADIUS
+          r: this.getBackgroundRadius()
         }) : null,
         _react2.default.createElement('path', {
           className: classes.trail,
@@ -10484,7 +10495,7 @@ var Demo = function (_React$Component) {
             _react2.default.createElement(_src2.default, {
               className: 'CircularProgressbar-inverted',
               background: true,
-              backgroundPadding: 5,
+              backgroundPadding: -6,
               strokeWidth: 6,
               percentage: 66,
               text: 66 + '%'
